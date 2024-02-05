@@ -9,24 +9,30 @@ namespace Actuator
 
         public Maybe(T value)
         {
-            if (value is null)
+            if (value == null 
+                || value.Equals(default))   // unity using fake objects as null means we need to do this
             {
                 _value = default;
                 _hasValue = false;
+                return;
             }
-            else
-            {
-                _value = value;
-                _hasValue = true;
-            }
+
+            _value = value;
+            _hasValue = true;
         }
+
+        public Maybe(T value, bool hasValue)
+        {
+            _value = value;
+            _hasValue = hasValue;
+        }
+
+        public static Maybe<T> None() => new(default, false);
 
         public bool IsNone => !IsSome;
         public bool IsSome => _hasValue;
         public T Value() => _value;
         public T ValueOr(T defaultValue) => _hasValue ? _value : defaultValue;
-
-        public static implicit operator Maybe<T>(T value) => new(value);
 
         public void MatchSome(Action<T> action)
         {

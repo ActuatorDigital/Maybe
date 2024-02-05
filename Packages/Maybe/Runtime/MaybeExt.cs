@@ -8,23 +8,30 @@ namespace Actuator
     {
         public static Maybe<T> FirstOrNone<T>(this IEnumerable<T> source)
         {
-            if (source.Any())
-                return source.First();
-            return default;
+            if (!source.Any())
+                return Maybe<T>.None();
+
+            return new(source.First());
         }
 
         public static Maybe<T> FirstOrNone<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         {
             if (!source.Any())
-                return default;
+                return Maybe<T>.None();
 
             foreach (var item in source)
             {
                 if (predicate(item))
-                    return item;
+                    return new(item);
             }
 
-            return default;
+            return Maybe<T>.None();
+        }
+
+        public static IEnumerable<Maybe<T>> ToMaybe<T>(this IEnumerable<T> source)
+        {
+            foreach (var item in source)
+                yield return new(item);
         }
     }
 }
