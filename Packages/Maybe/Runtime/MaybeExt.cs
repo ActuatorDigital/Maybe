@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Actuator
 {
@@ -33,5 +34,19 @@ namespace Actuator
             foreach (var item in source)
                 yield return new(item);
         }
+
+        public static Maybe<T> GetComponentOrNone<T>(this GameObject gameObject)
+            where T : Component
+        {
+            if(gameObject.TryGetComponent<T>(out var value))
+                return new Maybe<T>(value);
+            return Maybe<T>.None();
+        }
+
+        //map maybeT functT,U wrap maybe
+
+        //bind maybeT functT, maybeU
+
+        //wheresome
     }
 }
