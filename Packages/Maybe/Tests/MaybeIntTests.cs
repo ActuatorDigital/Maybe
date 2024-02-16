@@ -50,6 +50,17 @@ public class MaybeIntTests
     }
 
     [Test]
+    public void MatchSome_WhenSome_ShouldInvoke()
+    {
+        var wasInvoked = false;
+        var maybe = new Maybe<int>(1);
+
+        maybe.MatchSome(x => wasInvoked = true);
+
+        Assert.IsTrue(wasInvoked);
+    }
+
+    [Test]
     public void MatchNone_WhenEmpty_ShouldInvoke()
     {
         var wasInvoked = false;

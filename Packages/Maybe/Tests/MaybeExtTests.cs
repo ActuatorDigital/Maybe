@@ -13,6 +13,14 @@ public class MaybeExtTests
     }
 
     [Test]
+    public void FirstOrNone_WhenEmptyAndAskFor0_ShouldBeNone()
+    {
+        var maybe = Array.Empty<int>().FirstOrNone(x => x == 0);
+
+        Assert.IsTrue(maybe.IsNone);
+    }
+
+    [Test]
     public void FirstOrNone_When123AndAskFor1_ShouldBeSome()
     {
         var maybe = new[] { 1, 2, 3 }.FirstOrNone(x => x == 1);
@@ -21,10 +29,18 @@ public class MaybeExtTests
     }
 
     [Test]
-    public void FirstOrNone_When_ShouldBeNone()
+    public void FirstOrNone_WhenEmtpy_ShouldBeNone()
     {
         var maybe = Array.Empty<int>().FirstOrNone();
 
         Assert.IsTrue(maybe.IsNone);
+    }
+
+    [Test]
+    public void FirstOrNone_When123NoFilter_ShouldBeSome()
+    {
+        var maybe = new[] { 1, 2, 3 }.FirstOrNone();
+
+        Assert.IsTrue(maybe.IsSome);
     }
 }
