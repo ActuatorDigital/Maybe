@@ -31,4 +31,16 @@ public class MaybeLinqTests
 
         Assert.IsTrue(res.IsSome);
     }
+
+    [Test]
+    public void WhereSome_When1null23AndAskFor2_ShouldBe123()
+    {
+        var expectedSet = new object[] { 1, 2, 3 };
+        var fullSet = new object[] { 1, null, 2, 3 };
+        var set = fullSet.ToMaybe();
+
+        var res = set.WhereSome();
+
+        CollectionAssert.AreEquivalent(expectedSet, res);
+    }
 }

@@ -15,4 +15,4 @@
     "relatedPackages": {},
     "description": "A barebones Maybe (Option) type for use in Unity.",
     "type": "library"
-  }
+}

@@ -43,10 +43,11 @@ namespace Actuator
             return Maybe<T>.None();
         }
 
-        //map maybeT functT,U wrap maybe
-
-        //bind maybeT functT, maybeU
-
-        //wheresome
+        public static IEnumerable<T> WhereSome<T>(this IEnumerable<Maybe<T>> source)
+        {
+            return source
+                .Where(x => x.IsSome)
+                .Select(x => x.Value());
+        }
     }
 }
