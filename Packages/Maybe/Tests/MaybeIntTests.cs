@@ -20,6 +20,22 @@ public class MaybeIntTests
     }
 
     [Test]
+    public void None_WhenEmpty_ShouldBeNone()
+    {
+        var maybe = Maybe.None<int>();
+
+        Assert.IsTrue(maybe.IsNone);
+    }
+
+    [Test]
+    public void Some_WhenDefaultValue_ShouldBeSome()
+    {
+        var maybe = Maybe.Some(default(int));
+
+        Assert.IsTrue(maybe.IsSome);
+    }
+
+    [Test]
     public void Value_WhenZero_ShouldBeZero()
     {
         var exptected = 0;

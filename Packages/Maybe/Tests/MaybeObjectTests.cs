@@ -20,6 +20,22 @@ public class MaybeObjectTests
     }
 
     [Test]
+    public void None_WhenEmpty_ShouldBeNone()
+    {
+        var maybe = Maybe.None<object>();
+
+        Assert.IsTrue(maybe.IsNone);
+    }
+
+    [Test]
+    public void Some_WhenDefaultValue_ShouldBeSome()
+    {
+        var maybe = Maybe.Some(default(object));
+
+        Assert.IsTrue(maybe.IsSome);
+    }
+
+    [Test]
     public void ctor_WhenZero_ShouldBeSome()
     {
         var maybe = new Maybe<object>(0);

@@ -25,6 +25,22 @@ public class MaybeUnityObjectTests
     }
 
     [Test]
+    public void None_WhenEmpty_ShouldBeNone()
+    {
+        var maybe = Maybe.None<GameObject>();
+
+        Assert.IsTrue(maybe.IsNone);
+    }
+
+    [Test]
+    public void Some_WhenDefaultValue_ShouldBeSome()
+    {
+        var maybe = Maybe.Some(new GameObject());
+
+        Assert.IsTrue(maybe.IsSome);
+    }
+
+    [Test]
     public void ctor_WhenGetComponentNotPresent_ShouldBeNone()
     {
         var go = new GameObject();
