@@ -36,7 +36,6 @@ namespace Actuator
         }
 
         public static Maybe<T> GetComponentOrNone<T>(this GameObject gameObject)
-            where T : Component
         {
             if(gameObject.TryGetComponent<T>(out var value))
                 return new Maybe<T>(value);

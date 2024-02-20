@@ -1,6 +1,7 @@
 ﻿using Actuator;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MaybeUnityObjectTests
 {
@@ -68,5 +69,25 @@ public class MaybeUnityObjectTests
         var maybe = go.GetComponentOrNone<Rigidbody>();
 
         Assert.IsTrue(maybe.IsNone);
+    }
+
+    [Test]
+    public void GetComponentOrNone_WhenInterfaceNotPresent_ShouldBeNone()
+    {
+        var go = new GameObject();
+
+        var maybe = go.GetComponentOrNone<ILayoutElement>();
+
+        Assert.IsTrue(maybe.IsNone);
+    }
+
+    [Test]
+    public void GetComponentOrNone_WhenInterfaceIsPresent_ShouldBeSome()
+    {
+        var go = new GameObject("testObj", typeof(Image));
+
+        var maybe = go.GetComponentOrNone<ILayoutElement>();
+
+        Assert.IsTrue(maybe.IsSome);
     }
 }
