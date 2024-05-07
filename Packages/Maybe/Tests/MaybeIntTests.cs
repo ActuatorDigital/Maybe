@@ -142,4 +142,20 @@ public class MaybeIntTests
 
         Assert.AreEqual(someStatus, status);
     }
+
+    [Test]
+    public void TryOrNone_WhenThrows_ShouldBeNone()
+    {
+        var maybe = Maybe.TryOrNone<int>(() => throw new System.Exception());
+
+        Assert.IsTrue(maybe.IsNone);
+    }
+
+    [Test]
+    public void TryOrNone_WhenDoesNotThrow_ShouldBeSome()
+    {
+        var maybe = Maybe.TryOrNone<int>(() => 1);
+
+        Assert.IsTrue(maybe.IsSome);
+    }
 }
