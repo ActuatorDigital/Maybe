@@ -33,6 +33,7 @@ namespace Actuator
         public bool IsSome => _hasValue;
         public T Value() => _value;
         public T ValueOr(T defaultValue) => _hasValue ? _value : defaultValue;
+        public T ValueOr(Func<T> ifNoneAction) => _hasValue ? _value : ifNoneAction();
 
         public void MatchSome(Action<T> action)
         {
@@ -59,5 +60,16 @@ namespace Actuator
     {
         public static Maybe<T> Some<T>(T value) => new(value, true);
         public static Maybe<T> None<T>() => new(default, false);
+        public static Maybe<T> TryOrNone<T>(Func<T> func)
+        {
+            try
+            {
+                return new Maybe<T>(func());
+            }
+            catch (Exception)
+            {
+            }
+            return None<T>();
+        }
     }
 }
