@@ -55,6 +55,32 @@ public class MaybeIntTests
     }
 
     [Test]
+    public void ValueOr_WhenSome_ShouldNotInvoke()
+    {
+        var exptected = 0;
+        var invoked = false;
+        var maybe = new Maybe<int>(exptected);
+
+        var res = maybe.ValueOr(() => { invoked = true; return 1; });
+
+        Assert.AreEqual(exptected, res);
+        Assert.IsFalse(invoked);
+    }
+
+    [Test]
+    public void ValueOr_WhenNone_ShouldInvoke()
+    {
+        var exptected = 1;
+        var invoked = false;
+        var maybe = Maybe.None<int>();
+
+        var res = maybe.ValueOr(() => { invoked = true; return 1; });
+
+        Assert.AreEqual(exptected, res);
+        Assert.IsTrue(invoked);
+    }
+
+    [Test]
     public void MatchSome_WhenEmpty_ShouldNotInvoke()
     {
         var wasInvoked = false;

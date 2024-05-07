@@ -33,6 +33,7 @@ namespace Actuator
         public bool IsSome => _hasValue;
         public T Value() => _value;
         public T ValueOr(T defaultValue) => _hasValue ? _value : defaultValue;
+        public T ValueOr(Func<T> ifNoneAction) => _hasValue ? _value : ifNoneAction();
 
         public void MatchSome(Action<T> action)
         {
